@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Playlist Robot Addon Spotify Auth Callback</title>
+  <script>
+    (function () {
+      const params = new URLSearchParams(window.location.search);
+      const code = params.get('code');
+      const state = params.get('state');
+      browser.runtime.sendMessage({ type: 'SPOTIFY_AUTH_CODE', code, state });
+      window.close();
+    })();
+  </script>
+</head>
+
+<body>
+  <h3>You may close this window</h3>
+</body>
+
+</html>
