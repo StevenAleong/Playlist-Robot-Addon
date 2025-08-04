@@ -3,20 +3,26 @@
 
 <head>
   <meta charset="UTF-8" />
-  <title>Playlist Robot Addon Spotify Auth Callback</title>
+  <title>Playlist Robot Addon - Firefox Spotify Callback</title>
   <script>
-    (function () {
+    (async function () {
       const params = new URLSearchParams(window.location.search);
       const code = params.get('code');
       const state = params.get('state');
-      browser.runtime.sendMessage({ type: 'SPOTIFY_AUTH_CODE', code, state });
-      window.close();
+
+      // Send message to extension background
+      try {
+        await browser.runtime.sendMessage({ type: 'SPOTIFY_AUTH_CODE', code, state });
+        window.close();
+      } catch (err) {
+        console.error('Error sending message to extension:', err);
+      }
     })();
   </script>
 </head>
 
 <body>
-  <h3>You may close this window</h3>
+  <h3>Completing login…</h3>
 </body>
 
 </html>
